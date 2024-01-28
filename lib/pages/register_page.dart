@@ -2,12 +2,14 @@ import 'package:chat_app_firebase_tutorial/components/my_button.dart';
 import 'package:chat_app_firebase_tutorial/components/textfield.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final void Function()? onTap;
-  LoginPage({super.key, this.onTap});
-  void login() {}
+  RegisterPage({super.key, this.onTap});
+  void register() {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +31,7 @@ class LoginPage extends StatelessWidget {
 
             //welcome back
             const Text(
-              'Welcome Back You Have Been Missed!!',
+              'Not A Member? Register Now',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             ),
             const SizedBox(
@@ -54,11 +56,19 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
+            MyTextField(
+                text: 'confirm password',
+                obscureText: true,
+                controller: confirmPasswordController),
+
+            const SizedBox(
+              height: 20,
+            ),
 
             //login button
             MyButton(
               text: 'Login',
-              onTap: login,
+              onTap: register,
             ),
 
             const SizedBox(
@@ -69,17 +79,16 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Not a Member??',
+                  'Already  a Member??',
                   style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                  ),
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18),
                 ),
                 GestureDetector(
                   onTap: onTap,
                   child: const Text(
-                    'Register Now',
+                    'Sign In',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),

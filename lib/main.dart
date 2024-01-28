@@ -1,4 +1,4 @@
-import 'package:chat_app_firebase_tutorial/pages/login_page.dart';
+import 'package:chat_app_firebase_tutorial/authentication/login_or_register.dart';
 import 'package:chat_app_firebase_tutorial/themes/light_mode.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: lightMode,
-      home: const LoginPage(),
+      home: LoginOrRegister(),
     );
   }
 }

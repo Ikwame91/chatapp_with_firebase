@@ -1,4 +1,4 @@
-import 'package:chat_app_firebase_tutorial/authentication/login_or_register.dart';
+import 'package:chat_app_firebase_tutorial/authentication/auth_gate.dart';
 import 'package:chat_app_firebase_tutorial/firebase_options.dart';
 import 'package:chat_app_firebase_tutorial/themes/light_mode.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: lightMode,
-      home: LoginOrRegister(),
+      home: const AuthGate(),
     );
   }
 }

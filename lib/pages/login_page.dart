@@ -1,3 +1,4 @@
+import 'package:chat_app_firebase_tutorial/authentication/auth_servicee.dart';
 import 'package:chat_app_firebase_tutorial/components/my_button.dart';
 import 'package:chat_app_firebase_tutorial/components/textfield.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,33 @@ class LoginPage extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final void Function()? onTap;
   LoginPage({super.key, this.onTap});
-  void login() {}
+
+  //login function
+  void login(BuildContext context) async {
+    final auth = Authservice();
+    try {
+      await auth.userSignInWithEmailandPassword(
+          emailController.text, passwordController.text);
+    }
+    //catching errors
+    catch (e) {
+      // ignore: use_build_context_synchronously
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: const Text('Error'),
+                content: Text(e.toString()),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Ok'))
+                ],
+              ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +85,7 @@ class LoginPage extends StatelessWidget {
             //login button
             MyButton(
               text: 'Login',
-              onTap: login,
+              onTap: () => login(context),
             ),
 
             const SizedBox(

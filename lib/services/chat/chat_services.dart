@@ -1,9 +1,11 @@
+import 'package:chat_app_firebase_tutorial/models/message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ChatService {
   //get instance of firestore
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   /*
    <List<Map<String, dynamic>>=
    [
@@ -32,9 +34,48 @@ class ChatService {
     });
   }
 
-  // get user stream
+  //send message
+  Future<void> sendMessage(String receiverID, message) async {
+    final String currentUserId = _auth.currentUser!.uid;
+    final String currentEmail = _auth.currentUser!.email!;
+    final Timestamp timestamp = Timestamp.now();
+
+    //create a new message
+    Message newmessage = Message(
+      senderId: currentUserId,
+      senderEmail: currentEmail,
+      receiverId: receiverID,
+      message: message,
+      timestamp: timestamp,
+    );
+
+    //construct chat rooms Id for the two users ({sorted to ensure uniqueness})
+    List<String> ids = [currentUserId, receiverID];
+    //sorting the ids ({ensures the chatroom id is the same for any 2 people})
+    ids.sort();
+    String chatRoomId = ids.join('_');
+
+    //add new message to database
+    await _firestore
+        .collection("chat_rooms")
+        .doc(chatRoomId)
+        .collection("messages")
+        .add(newmessage.toMap());
+  }
 
   //get message
+  Stream<QuerySnapshot> getMessages(String userID, otherUserID) {
+    //construct a chatroom ID for the two users
+    List<String> ids = [userID, otherUserID];
+    ids.sort();
+    String chatRoomID = ids.join('_');
+    return _firestore
+        .collection("chat_room")
+        .doc(chatRoomID)
+        .collection("messages")
+        .orderBy("timestamp", descending: false)
+        .snapshots();
+  }
 }
 
 
@@ -51,7 +92,7 @@ class ChatService {
 
 
 
-  //send message
+  
   // Stream<List<Map<String, dynamic>>> sendMessage(
   //     String message, String email) {
   //   //get current time

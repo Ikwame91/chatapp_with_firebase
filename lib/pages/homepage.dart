@@ -14,15 +14,23 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: const Text('Chat App'),
-          centerTitle: true,
-          actions: const [
-            IconButton(onPressed: logout, icon: Icon(Icons.logout))
-          ]),
-      drawer: const MyDrawer(),
-      body: _buildUserList(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+            title: const Text('Chat App',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold)),
+            centerTitle: true,
+            actions: const [
+              IconButton(onPressed: logout, icon: Icon(Icons.logout))
+            ]),
+        drawer: const MyDrawer(),
+        body: _buildUserList(),
+      ),
     );
   }
 

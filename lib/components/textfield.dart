@@ -21,16 +21,24 @@ class MyTextField extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.inversePrimary,
+              width: 3,
             ),
+            borderRadius: BorderRadius.circular(15),
           ),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primary,
+              color: Colors.orange,
+              width: 2,
             ),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
           fillColor: Theme.of(context).colorScheme.background,
           filled: true,
           hintText: text,
+          hintStyle: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 17,
+          ),
         ),
       ),
     );

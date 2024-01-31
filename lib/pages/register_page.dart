@@ -1,6 +1,6 @@
-import 'package:chat_app_firebase_tutorial/authentication/auth_servicee.dart';
 import 'package:chat_app_firebase_tutorial/components/my_button.dart';
 import 'package:chat_app_firebase_tutorial/components/textfield.dart';
+import 'package:chat_app_firebase_tutorial/services/authentication/auth_servicee.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -100,7 +100,7 @@ class RegisterPage extends StatelessWidget {
 
               //login button
               MyButton(
-                text: 'Login',
+                text: 'Register',
                 onTap: () => register(context),
               ),
 

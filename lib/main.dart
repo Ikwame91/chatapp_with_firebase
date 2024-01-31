@@ -1,5 +1,5 @@
-import 'package:chat_app_firebase_tutorial/authentication/auth_gate.dart';
 import 'package:chat_app_firebase_tutorial/firebase_options.dart';
+import 'package:chat_app_firebase_tutorial/services/authentication/auth_gate.dart';
 import 'package:chat_app_firebase_tutorial/themes/light_mode.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

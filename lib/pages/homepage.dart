@@ -61,16 +61,22 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildUserItem(Map<String, dynamic> userData, BuildContext context) {
     //display all users except cureent user
-    return UserTile(
-      text: userData["email"],
-      onTap: () {
-        Navigator.push(
+    if (userData["email"] != _authservice.getCurentUser()!.email) {
+      return UserTile(
+        text: userData["email"],
+        onTap: () {
+          Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ChatPage(
-                      receiverEmail: userData["email"],
-                    )));
-      },
-    );
+              builder: (context) => ChatPage(
+                receiverEmail: userData["email"],
+              ),
+            ),
+          );
+        },
+      );
+    } else {
+      return Container();
+    }
   }
 }

@@ -15,14 +15,14 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
-  bool isLoading = false;
+  // bool isLoading = false;
   //login function
   void login(BuildContext context) async {
-    if (mounted) {
-      setState(() {
-        isLoading = true;
-      });
-    }
+    // if (mounted) {
+    //   setState(() {
+    //     isLoading = true;
+    //   });
+    // }
     final auth = Authservice();
     try {
       await auth.userSignInWithEmailandPassword(
@@ -44,10 +44,11 @@ class _LoginPageState extends State<LoginPage> {
                       child: const Text('Ok'))
                 ],
               ));
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
+      // } finally {
+      //   setState(() {
+      //     isLoading = false;
+      //   });
+      // }
     }
   }
 
@@ -100,14 +101,15 @@ class _LoginPageState extends State<LoginPage> {
               ),
 
               //login button
-              isLoading
-                  ? const CircularProgressIndicator(
-                      color: Colors.blue,
-                    )
-                  : MyButton(
-                      text: 'Login',
-                      onTap: () => login(context),
-                    ),
+              // isLoading
+              // ?
+              //  const CircularProgressIndicator(
+              //     color: Colors.blue,
+              //   )
+              MyButton(
+                text: 'Login',
+                onTap: () => login(context),
+              ),
 
               const SizedBox(
                 height: 45,

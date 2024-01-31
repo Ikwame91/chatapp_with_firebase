@@ -23,10 +23,12 @@ class Authservice {
       );
 
       //save user info if it doesnt already exist
-      _firestore
-          .collection("users")
-          .doc(userCredential.user!.uid)
-          .set({'uid': userCredential.user!.uid, 'email': email});
+      _firestore.collection("Users").doc(userCredential.user!.uid).set(
+        {
+          'uid': userCredential.user!.uid,
+          'email': email,
+        },
+      );
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
@@ -44,10 +46,12 @@ class Authservice {
       );
 
       //save user info to a seperate document
-      _firestore
-          .collection("users")
-          .doc(userCredential.user!.uid)
-          .set({'uid': userCredential.user!.uid, 'email': email});
+      _firestore.collection("Users").doc(userCredential.user!.uid).set(
+        {
+          'uid': userCredential.user!.uid,
+          'email': email,
+        },
+      );
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);

@@ -17,7 +17,10 @@ class UserTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: Row(
           children: [
-            Icon(Icons.person),
+            Icon(
+              Icons.person,
+              size: 50,
+            ),
             Text(
               text,
               style: TextStyle(

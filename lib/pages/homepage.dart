@@ -5,20 +5,11 @@ import 'package:chat_app_firebase_tutorial/services/authentication/auth_servicee
 import 'package:chat_app_firebase_tutorial/services/chat/chat_services.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends StatelessWidget {
+  HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-void logout() async {
-  final auth = Authservice();
-  await auth.signOut();
-}
-
-class _HomePageState extends State<HomePage> {
   final ChatService _chatService = ChatService();
+
   final Authservice _authservice = Authservice();
 
   @override
@@ -79,4 +70,9 @@ class _HomePageState extends State<HomePage> {
       return Container();
     }
   }
+}
+
+void logout() async {
+  final auth = Authservice();
+  await auth.signOut();
 }

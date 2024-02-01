@@ -27,6 +27,7 @@ class _ChatPageState extends State<ChatPage> {
 
   final FocusNode _focusNode = FocusNode();
   final ScrollController _scrollController = ScrollController();
+
 //send message
   void sendMessage() async {
     //if there is something inside the text field
@@ -39,10 +40,29 @@ class _ChatPageState extends State<ChatPage> {
 
       //clear text field
       _messageController.clear();
-      // Future.delayed(const Duration(milliseconds: 300), () {
-      //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      // });
+
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 1000),
+          curve: Curves.easeOut,
+        );
+      });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 1000),
+          curve: Curves.easeOut,
+        );
+      }
+    });
   }
 
   @override
@@ -55,6 +75,9 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Theme.of(context).colorScheme.secondary,
         title: Text(widget.receiverEmail),
         centerTitle: true,
       ),
@@ -92,6 +115,7 @@ class _ChatPageState extends State<ChatPage> {
           }
 
           return ListView(
+            controller: _scrollController,
             children: snapshot.data!.docs
                 .map((doc) => _buildMessageItem(doc))
                 .toList(),
@@ -104,24 +128,33 @@ class _ChatPageState extends State<ChatPage> {
     bool isCurrentUser = data["senderId"] == _authservice.getCurentUser()!.uid;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-      alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 25),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: isCurrentUser ? Colors.green : Colors.grey),
-        child: Text(
-          data["message"],
-          style: const TextStyle(
-              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
+      child: Wrap(
+        alignment: isCurrentUser ? WrapAlignment.end : WrapAlignment.start,
+        children: [
+          Container(
+            constraints: const BoxConstraints(maxWidth: 280),
+            padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 25),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: isCurrentUser ? Colors.green : Colors.grey,
+            ),
+            child: Text(
+              data["message"],
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildMessageInput() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
       child: Row(
         children: [
           Expanded(
@@ -136,7 +169,6 @@ class _ChatPageState extends State<ChatPage> {
               icon: const Icon(Icons.send),
               onPressed: () {
                 sendMessage();
-                _focusNode.requestFocus();
               }),
         ],
       ),

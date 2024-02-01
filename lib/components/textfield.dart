@@ -16,6 +16,7 @@ class MyTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: TextField(
+        focusNode: focusNode,
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(

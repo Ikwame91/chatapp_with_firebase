@@ -1,9 +1,13 @@
-import 'package:chat_app_firebase_tutorial/pages/homepage.dart';
 import 'package:chat_app_firebase_tutorial/pages/settings.dart';
+import 'package:chat_app_firebase_tutorial/services/authentication/auth_servicee.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
+  void logout() async {
+    final auth = Authservice();
+    await auth.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {

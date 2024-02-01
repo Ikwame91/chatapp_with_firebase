@@ -7,6 +7,10 @@ import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
+  void logout() async {
+    final auth = Authservice();
+    await auth.signOut();
+  }
 
   final ChatService _chatService = ChatService();
 
@@ -19,14 +23,14 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
             backgroundColor: Colors.transparent,
             foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: const Text('Chat App',
-                style: TextStyle(
+            title: Text(_authservice.getCurentUser()?.email ?? 'Default Email',
+                style: const TextStyle(
                     color: Colors.black,
                     fontSize: 25,
                     fontWeight: FontWeight.bold)),
             centerTitle: true,
-            actions: const [
-              IconButton(onPressed: logout, icon: Icon(Icons.logout))
+            actions: [
+              IconButton(onPressed: logout, icon: const Icon(Icons.logout))
             ]),
         drawer: const MyDrawer(),
         body: _buildUserList(),
@@ -68,6 +72,7 @@ class HomePage extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => ChatPage(
+                receiverId: userData["uid"],
                 receiverEmail: userData["email"],
               ),
             ),
@@ -78,9 +83,4 @@ class HomePage extends StatelessWidget {
       return Container();
     }
   }
-}
-
-void logout() async {
-  final auth = Authservice();
-  await auth.signOut();
 }

@@ -24,12 +24,14 @@ class UserTile extends StatelessWidget {
             const SizedBox(
               width: 20,
             ),
-            Text(
-              text,
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+            Expanded(
+              child: Text(
+                text,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),

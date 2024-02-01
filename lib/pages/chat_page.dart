@@ -25,17 +25,30 @@ class _ChatPageState extends State<ChatPage> {
 
   final Authservice _authservice = Authservice();
 
+  final FocusNode _focusNode = FocusNode();
+  final ScrollController _scrollController = ScrollController();
 //send message
   void sendMessage() async {
     //if there is something inside the text field
     if (_messageController.text.isNotEmpty) {
       //send message
       await _chatService.sendMessage(
-          widget.receiverId, _messageController.text);
+        widget.receiverId,
+        _messageController.text,
+      );
 
       //clear text field
       _messageController.clear();
+      // Future.delayed(const Duration(milliseconds: 300), () {
+      //   _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      // });
     }
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -45,14 +58,20 @@ class _ChatPageState extends State<ChatPage> {
         title: Text(widget.receiverEmail),
         centerTitle: true,
       ),
-      body: Column(
-        //display all messages
-        children: [
-          Expanded(
-            child: _buildMesssageList(),
-          ),
-          _buildMessageInput(),
-        ],
+      body: GestureDetector(
+        onTap: () {
+          // FocusScope.of(context).requestFocus(FocusNode());
+          FocusScope.of(context).unfocus();
+        },
+        child: Column(
+          //display all messages
+          children: [
+            Expanded(
+              child: _buildMesssageList(),
+            ),
+            _buildMessageInput(),
+          ],
+        ),
       ),
     );
   }
@@ -84,15 +103,17 @@ class _ChatPageState extends State<ChatPage> {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     bool isCurrentUser = data["senderId"] == _authservice.getCurentUser()!.uid;
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: Card(
-        color: isCurrentUser ? Colors.green : Colors.grey,
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(
-            data["message"],
-            style: const TextStyle(color: Colors.white),
-          ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 25),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: isCurrentUser ? Colors.green : Colors.grey),
+        child: Text(
+          data["message"],
+          style: const TextStyle(
+              fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
     );
@@ -108,12 +129,15 @@ class _ChatPageState extends State<ChatPage> {
               text: 'type here',
               obscureText: false,
               controller: _messageController,
+              focusNode: _focusNode,
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.send),
-            onPressed: sendMessage,
-          ),
+              icon: const Icon(Icons.send),
+              onPressed: () {
+                sendMessage();
+                _focusNode.requestFocus();
+              }),
         ],
       ),
     );

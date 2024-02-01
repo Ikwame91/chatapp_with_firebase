@@ -4,12 +4,13 @@ class MyTextField extends StatelessWidget {
   const MyTextField(
       {super.key,
       required this.text,
+      this.focusNode,
       required this.obscureText,
       required this.controller});
   final String text;
   final bool obscureText;
   final TextEditingController controller;
-
+  final FocusNode? focusNode;
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -3,7 +3,9 @@ import 'package:chat_app_firebase_tutorial/components/user_tile.dart';
 import 'package:chat_app_firebase_tutorial/pages/chat_page.dart';
 import 'package:chat_app_firebase_tutorial/services/authentication/auth_servicee.dart';
 import 'package:chat_app_firebase_tutorial/services/chat/chat_services.dart';
+import 'package:chat_app_firebase_tutorial/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -30,8 +32,20 @@ class HomePage extends StatelessWidget {
                     fontWeight: FontWeight.bold)),
             centerTitle: true,
             actions: [
-              IconButton(onPressed: logout, icon: const Icon(Icons.logout))
-            ]),
+            Consumer<ThemeProvider>(builder: ((context, value, child) {
+              return IconButton(
+                onPressed: () {
+                  Provider.of<ThemeProvider>(context, listen: false)
+                      .toggleTheme();
+                },
+                icon: Icon(
+                  Provider.of<ThemeProvider>(context).isDarkMode
+                      ? Icons.brightness_7
+                      : Icons.brightness_2,
+                ),
+              );
+            }))
+          ],),
         drawer: const MyDrawer(),
         body: _buildUserList(),
       ),

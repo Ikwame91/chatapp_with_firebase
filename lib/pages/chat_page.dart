@@ -26,6 +26,7 @@ class _ChatPageState extends State<ChatPage> {
   final Authservice _authservice = Authservice();
 
   final FocusNode _focusNode = FocusNode();
+
   final ScrollController _scrollController = ScrollController();
 
 //send message
@@ -41,28 +42,12 @@ class _ChatPageState extends State<ChatPage> {
       //clear text field
       _messageController.clear();
 
-      Future.delayed(const Duration(milliseconds: 1000), () {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 1000),
-          curve: Curves.easeOut,
-        );
-      });
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 1000),
-          curve: Curves.easeOut,
-        );
-      }
-    });
   }
 
   @override

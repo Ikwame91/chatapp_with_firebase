@@ -18,9 +18,7 @@ class Authservice {
     try {
       //sign user in
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+          email: email, password: password);
 
       //save user info if it doesnt already exist
       _firestore.collection("Users").doc(userCredential.user!.uid).set(

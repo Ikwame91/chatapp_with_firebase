@@ -9,31 +9,47 @@ class UserTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Theme.of(context).colorScheme.primary),
-        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-        child: Row(
-          children: [
-            const Icon(
-              Icons.person,
-              size: 40,
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Expanded(
-              child: Text(
-                text,
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 15),
+        child: Expanded(
+          flex: 1,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircleAvatar(
+                child: Icon(
+                  Icons.person,
+                  color: Colors.black38,
+                  size: 40,
+                ),
               ),
-            ),
-          ],
+              Expanded(
+                flex: 4,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Theme.of(context).colorScheme.primary),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          text,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

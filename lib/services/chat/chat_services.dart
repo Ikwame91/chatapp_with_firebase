@@ -1,6 +1,7 @@
 import 'package:chat_app_firebase_tutorial/models/message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
 class ChatService {
   //get instance of firestore
@@ -75,6 +76,28 @@ class ChatService {
         .collection("messages")
         .orderBy("timestamp", descending: false)
         .snapshots();
+  }
+
+  Future<void> deleteMessage(String messageId, String receiverID) async {
+    final String currentUserId = _auth.currentUser!.uid;
+    // Get the current chat room ID
+    List<String> ids = [currentUserId, receiverID];
+    ids.sort();
+    String chatRoomID = ids.join('_');
+
+    try {
+      await _firestore
+          .collection("chat_rooms")
+          .doc(chatRoomID)
+          .collection("messages")
+          .doc(messageId)
+          .delete();
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error deleting message: $e");
+      }
+      // Handle the error (show a message, log, etc.)
+    }
   }
 }
 

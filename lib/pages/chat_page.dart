@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:chat_app_firebase_tutorial/components/bubble_messages.dart';
 import 'package:chat_app_firebase_tutorial/components/textfield.dart';
 import 'package:chat_app_firebase_tutorial/services/authentication/auth_servicee.dart';
 import 'package:chat_app_firebase_tutorial/services/chat/chat_services.dart';
@@ -111,28 +112,21 @@ class _ChatPageState extends State<ChatPage> {
   Widget _buildMessageItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     bool isCurrentUser = data["senderId"] == _authservice.getCurentUser()!.uid;
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-      child: Wrap(
-        alignment: isCurrentUser ? WrapAlignment.end : WrapAlignment.start,
-        children: [
-          Container(
-            constraints: const BoxConstraints(maxWidth: 280),
-            padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 25),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
+    return GestureDetector(
+      onLongPress: () {
+        _showDeleteMessageDialog(doc.id);
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+        child: Wrap(
+          alignment: isCurrentUser ? WrapAlignment.end : WrapAlignment.start,
+          children: [
+            BubbleMessages(
+              text: data["message"],
               color: isCurrentUser ? Colors.green : Colors.grey,
-            ),
-            child: Text(
-              data["message"],
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -158,5 +152,46 @@ class _ChatPageState extends State<ChatPage> {
         ],
       ),
     );
+  }
+
+  void _showDeleteMessageDialog(String messageId) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Message'),
+        content: const Text('Are you sure you want to delete this message?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              _deleteMessage(messageId);
+              Navigator.of(context).pop();
+            },
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _deleteMessage(String messageId) async {
+    try {
+      // Get the receiverId
+      String receiverId = widget.receiverId;
+
+      // Call the deleteMessage function from ChatService
+      await _chatService.deleteMessage(messageId, receiverId);
+
+      // Optionally, you can perform additional tasks after deletion
+      // For example, update the UI, show a message, etc.
+    } catch (e) {
+      print("Error deleting message: $e");
+      // Handle the error (show a message, log, etc.)
+    }
   }
 }

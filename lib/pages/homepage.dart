@@ -23,15 +23,15 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: Text(_authservice.getCurentUser()?.email ?? 'Default Email',
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold)),
-            centerTitle: true,
-            actions: [
+          backgroundColor: Colors.transparent,
+          foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(_authservice.getCurentUser()?.email ?? 'Default Email',
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold)),
+          centerTitle: true,
+          actions: [
             Consumer<ThemeProvider>(builder: ((context, value, child) {
               return IconButton(
                 onPressed: () {
@@ -40,12 +40,13 @@ class HomePage extends StatelessWidget {
                 },
                 icon: Icon(
                   Provider.of<ThemeProvider>(context).isDarkMode
-                      ? Icons.brightness_7
+                      ? Icons.brightness_4_outlined
                       : Icons.brightness_2,
                 ),
               );
             }))
-          ],),
+          ],
+        ),
         drawer: const MyDrawer(),
         body: _buildUserList(),
       ),

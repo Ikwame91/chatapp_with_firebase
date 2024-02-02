@@ -138,7 +138,7 @@ class _ChatPageState extends State<ChatPage> {
         children: [
           Expanded(
             child: MyTextField(
-              text: 'type here',
+              text: 'Send Message',
               obscureText: false,
               controller: _messageController,
               focusNode: _focusNode,
@@ -158,16 +158,16 @@ class _ChatPageState extends State<ChatPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Message'),
+        title: const Text('Delete Message For You'),
         content: const Text('Are you sure you want to delete this message?'),
         actions: [
-          TextButton(
+          MaterialButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
             child: const Text('Cancel'),
           ),
-          TextButton(
+          MaterialButton(
             onPressed: () {
               _deleteMessage(messageId);
               Navigator.of(context).pop();
@@ -184,14 +184,9 @@ class _ChatPageState extends State<ChatPage> {
       // Get the receiverId
       String receiverId = widget.receiverId;
 
-      // Call the deleteMessage function from ChatService
       await _chatService.deleteMessage(messageId, receiverId);
-
-      // Optionally, you can perform additional tasks after deletion
-      // For example, update the UI, show a message, etc.
     } catch (e) {
       print("Error deleting message: $e");
-      // Handle the error (show a message, log, etc.)
     }
   }
 }

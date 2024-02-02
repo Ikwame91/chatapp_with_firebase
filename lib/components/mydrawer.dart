@@ -34,7 +34,13 @@ class MyDrawer extends StatelessWidget {
                     color: Theme.of(context).colorScheme.inversePrimary,
                     size: 35,
                   ),
-                  title: const Text('H O M E'),
+                  title: Text(
+                    'H O M E',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -48,7 +54,13 @@ class MyDrawer extends StatelessWidget {
                     color: Theme.of(context).colorScheme.inversePrimary,
                     size: 35,
                   ),
-                  title: const Text('S E T T I N G S'),
+                  title: Text(
+                    'S E T T I N G S',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   onTap: () {
                     Navigator.push(
                         context,
@@ -67,7 +79,13 @@ class MyDrawer extends StatelessWidget {
                 color: Theme.of(context).colorScheme.inversePrimary,
                 size: 35,
               ),
-              title: const Text('L O G O U T'),
+              title: Text(
+                'L O G O U T',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               onTap: logout,
             ),
           )

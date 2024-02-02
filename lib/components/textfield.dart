@@ -37,9 +37,10 @@ class MyTextField extends StatelessWidget {
           fillColor: Theme.of(context).colorScheme.background,
           filled: true,
           hintText: text,
-          hintStyle: const TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 17,
+          hintStyle: TextStyle(
+            fontWeight: FontWeight.w500,
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 15,
           ),
         ),
       ),

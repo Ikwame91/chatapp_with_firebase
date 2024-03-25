@@ -1,5 +1,7 @@
 import 'package:chat_app_firebase_tutorial/firebase_options.dart';
 import 'package:chat_app_firebase_tutorial/services/authentication/auth_gate.dart';
+import 'package:chat_app_firebase_tutorial/themes/dark_mode.dart';
+import 'package:chat_app_firebase_tutorial/themes/light_mode.dart';
 import 'package:chat_app_firebase_tutorial/themes/theme_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: Provider.of<ThemeProvider>(context).themeData,
+      theme: lightMode,
+      darkTheme: darkMode,
       home: const AuthGate(),
     );
   }

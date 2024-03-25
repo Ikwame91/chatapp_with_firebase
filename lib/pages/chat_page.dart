@@ -32,7 +32,6 @@ class _ChatPageState extends State<ChatPage> {
 
 //send message
   void sendMessage() async {
-    //if there is something inside the text field
     if (_messageController.text.isNotEmpty) {
       //send message
       await _chatService.sendMessage(
@@ -69,7 +68,6 @@ class _ChatPageState extends State<ChatPage> {
       ),
       body: GestureDetector(
         onTap: () {
-          // FocusScope.of(context).requestFocus(FocusNode());
           FocusScope.of(context).unfocus();
         },
         child: Column(

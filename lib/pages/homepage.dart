@@ -9,14 +9,15 @@ import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-  void logout() async {
-    final auth = Authservice();
-    await auth.signOut();
-  }
 
   final ChatService _chatService = ChatService();
 
   final Authservice _authservice = Authservice();
+
+  void logout() async {
+    final auth = Authservice();
+    await auth.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,10 @@ class HomePage extends StatelessWidget {
             Consumer<ThemeProvider>(builder: ((context, value, child) {
               return IconButton(
                 onPressed: () {
-                  Provider.of<ThemeProvider>(context, listen: false)
-                      .toggleTheme();
+                  Provider.of<ThemeProvider>(
+                    context,
+                    listen: false,
+                  ).toggleTheme();
                 },
                 icon: Icon(
                   Provider.of<ThemeProvider>(context).isDarkMode

@@ -4,12 +4,16 @@ import 'package:chat_app_firebase_tutorial/services/authentication/auth_servicee
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
   final void Function()? onTap;
   RegisterPage({super.key, this.onTap});
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
+  //
   void register(BuildContext context) {
     final auth = Authservice();
     if (passwordController.text == confirmPasswordController.text) {
@@ -45,7 +49,7 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.background,
       resizeToAvoidBottomInset: false,
       body: Center(
         child: SingleChildScrollView(
@@ -55,7 +59,7 @@ class RegisterPage extends StatelessWidget {
               //logo
               Icon(
                 color: Theme.of(context).colorScheme.inversePrimary,
-                Icons.message,
+                Icons.android,
                 size: 150,
               ),
               const SizedBox(
@@ -64,8 +68,17 @@ class RegisterPage extends StatelessWidget {
 
               //welcome back
               const Text(
-                'Not A Member? Register Now',
+                ' Register Below',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+
+              MyTextField(
+                text: 'Username',
+                obscureText: false,
+                controller: usernameController,
               ),
               const SizedBox(
                 height: 20,

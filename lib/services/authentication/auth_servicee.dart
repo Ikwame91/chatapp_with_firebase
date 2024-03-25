@@ -34,7 +34,7 @@ class Authservice {
   }
 
   //sign up with email and password
-  Future<UserCredential> signUpWithEmailAndPassword(
+  Future<UserCredential?> signUpWithEmailAndPassword(
       String email, password) async {
     try {
       UserCredential userCredential =
@@ -51,8 +51,9 @@ class Authservice {
         },
       );
       return userCredential;
-    } on FirebaseAuthException catch (e) {
-      throw Exception(e.message);
+    } catch (e) {
+      print("Error during sign up: $e");
+      return null;
     }
   }
 

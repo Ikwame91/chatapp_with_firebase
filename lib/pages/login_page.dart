@@ -24,7 +24,6 @@ class _LoginPageState extends State<LoginPage> {
     }
     //catching errors
     catch (e) {
-      // ignore: use_build_context_synchronously
       showDialog(
           context: context,
           builder: (context) => AlertDialog(

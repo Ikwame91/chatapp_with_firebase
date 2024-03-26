@@ -142,11 +142,17 @@ class _ChatPageState extends State<ChatPage> {
               focusNode: _focusNode,
             ),
           ),
-          IconButton(
-              icon: const Icon(Icons.send),
-              onPressed: () {
-                sendMessage();
-              }),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.green,
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+                icon: const Icon(Icons.send),
+                onPressed: () {
+                  sendMessage();
+                }),
+          ),
         ],
       ),
     );
